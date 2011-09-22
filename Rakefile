@@ -77,7 +77,8 @@ begin
   end
 rescue LoadError => e
   puts e.message
-  puts "You don't seem to have chef, installing it for you"
-  system("gem install chef --no-rdoc --no-ri")
-  puts "I had to install chef for you, please rerun 'rake smeagol'"
+  puts "You don't seem to have chef. You can install it by running the following command:"
+  puts "gem install chef --no-rdoc --no-ri"
+  puts "NOTE: if you get a permissions error, you will need to run that command as root via sudo"
+  puts "After installing chef, please rerun 'rake smeagol:install'"
 end
