@@ -29,6 +29,6 @@ if [[ -f <%= @home %>/.cinderella.profile.custom ]]; then
   source ~/.cinderella.profile.custom
 fi
 
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
+if [ $SHELL = /bin/bash -a -f `brew --prefix`/etc/bash_completion ]; then
+  source <%= @home %>/Developer/etc/bash_completion
 fi
