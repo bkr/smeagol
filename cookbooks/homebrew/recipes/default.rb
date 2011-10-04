@@ -86,6 +86,6 @@ script "updating homebrew from github" do
   EOS
 end
 
-homebrew "nginx"
+# homebrew "nginx"
 homebrew "bash-completion"
 # homebrew "solr"
