@@ -9,8 +9,8 @@ HOMEBREW_TEMP="<%= @home %>/Developer/tmp"; export HOMEBREW_TEMP
 
 export CONFIGURE_ARGS="--with-cflags='$CFLAGS' --with-ldflags='$LDFLAGS'"
 
-if [[ -s <%= @home %>/Developer/.rvm/scripts/rvm ]] ; then
-  source <%= @home %>/Developer/.rvm/scripts/rvm
+if [[ -s <%= @home %>/.rvm/scripts/rvm ]] ; then
+  source <%= @home %>/.rvm/scripts/rvm
 fi
 
 if [[ -d <%= @home %>/Developer/Cellar/python/2.7/bin ]]; then

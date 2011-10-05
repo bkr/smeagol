@@ -3,8 +3,17 @@
 # Recipe:: rvm
 #
 
-RVM_INSTALL_ROOT     = "#{ENV['HOME']}/Developer/.rvm"
-DEFAULT_RUBY_VERSION = "1.8.7-p248"
+RVM_INSTALL_ROOT     = "#{ENV['HOME']}/.rvm"
+DEFAULT_RUBY_VERSION = "ree"
+
+if DEFAULT_RUBY_VERSION.match('ree')
+  puts 'looks like we are using REE hopefully in Lion, which needs this'
+  GCC_OVERRIDE = 'export CC=/usr/bin/gcc-4.2' 
+else
+  puts "looks like we are NOT using REE"
+  GCC_OVERRIDE = ''
+end
+
 
 template "#{ENV['HOME']}/.rvmrc" do
   mode   0700
@@ -14,17 +23,12 @@ template "#{ENV['HOME']}/.rvmrc" do
   variables({ :home => ENV['HOME'] })
 end
 
-script "installing rvm to ~/Developer" do
+script "installing rvm to ~/.rvm" do
   interpreter "bash"
   code <<-EOS
     source ~/.cinderella.profile
-    if [[ ! -d #{RVM_INSTALL_ROOT} ]]; then
-      if [[ -d ./rvm ]]; then
-        rm -rf ./rvm
-      fi
-      git clone git://github.com/wayneeseguin/rvm.git #{ENV['HOME']}/Developer/rvm >> ~/.cinderella/ruby.log
-      cd #{ENV['HOME']}/Developer/rvm && ./install >> ~/.cinderella/ruby.log
-    fi
+    export HOME
+    bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)
   EOS
 end
 
@@ -42,6 +46,7 @@ script "installing ruby" do
     source ~/.cinderella.profile
     `rvm list | grep -q '#{DEFAULT_RUBY_VERSION}'`
     if [ $? -ne 0 ]; then
+      #{GCC_OVERRIDE}
       rvm install #{DEFAULT_RUBY_VERSION}
     fi
   EOS
@@ -58,24 +63,24 @@ script "ensuring a default ruby is set" do
   EOS
 end
 
-directory "#{ENV['HOME']}/Developer/.rvm/gemsets" do
+directory "#{ENV['HOME']}/.rvm/gemsets" do
   action 'create'
 end
 
-template "#{ENV['HOME']}/Developer/.rvm/gemsets/default.gems" do
+template "#{ENV['HOME']}/.rvm/gemsets/default.gems" do
   source "default.gems.erb"
 end
 
-# script "ensuring default rubygems are installed" do
-#   interpreter "bash"
-#   code <<-EOS
-#     source ~/.cinderella.profile
-#     rvm gemset load ~/Developer/.rvm/gemsets/default.gems >> ~/.cinderella/ruby.log 2>&1
-#   EOS
-# end
-#
+script "ensuring default rubygems are installed" do
+  interpreter "bash"
+  code <<-EOS
+    source ~/.cinderella.profile
+    rvm gemset load ~/.rvm/gemsets/default.gems >> ~/.cinderella/ruby.log 2>&1
+  EOS
+end
+
 execute "cleanup rvm build artifacts" do
-  command "find ~/Developer/.rvm/src -depth 1 | grep -v src/rvm | xargs rm -rf "
+  command "find ~/.rvm/src -depth 1 | grep -v src/rvm | xargs rm -rf "
 end
 
 template "#{ENV['HOME']}/.gemrc" do
