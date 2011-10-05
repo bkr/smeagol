@@ -1,0 +1,35 @@
+worker_processes 1;
+
+events {
+  worker_connections 8192;
+}
+
+http {
+
+  include mime.types;
+  default_type application/octet-stream;
+
+  log_format main '$remote_addr - $remote_user [$time_local]  '
+    '"$request" $status $body_bytes_sent '
+    '"$http_referer" "$http_user_agent" $request_time $cookie__bookrenter_session_id $cookie__brvisitor';
+
+  sendfile on;
+  tcp_nopush  on;
+
+  server_names_hash_bucket_size  128;
+
+  gzip  on;
+  gzip_proxied      any;
+  gzip_disable        "MSIE [1-6] \.";
+  gzip_vary           on;
+  gzip_comp_level 8;
+  gzip_buffers 16 8k;
+  gzip_types  text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+  include stack.conf;
+  # Put cart first below so it becomes the default
+  include sites-available/cart.conf;
+  include sites-available/bws.conf;
+  include sites-available/ops.conf;
+  include sites-available/store_control_panel.conf;
+}
