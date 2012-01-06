@@ -39,7 +39,11 @@ server {
 
 server {
   listen 443;
+  <% if @site == 'store_control_panel' %>
+  server_name <%= @site %>.local.bookrenter.com store.local.bookrenter.com stores.local.bookrenter.com;
+  <% else %>
   server_name <%= @site %>.local.bookrenter.com;
+  <% end %>
   root <%= @home %>/Developer/main/<%= @site %>/public;
 
   error_page 404 /404.html;
