@@ -1,7 +1,12 @@
 {
   "recipes": [
-     "homebrew", "homebrew::misc", "git",
-     "mvim", "mvim::cli", "homebrew::dbs",
-     "ruby", "ruby::rbenv", "python", "erlang", "node",
+     "homebrew", // Installs homebrew, plus creates ~/Developer and a related improvements
+     "homebrew::misc"
+     "git"
+     "homebrew::dbs",
+     "ruby",
+     "ruby::rvm",
+     "bookrenter",
+     "bookrenter::nginx_and_passenger"
   ]
 }
