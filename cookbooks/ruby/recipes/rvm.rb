@@ -4,7 +4,7 @@
 #
 
 RVM_INSTALL_ROOT     = "#{ENV['HOME']}/.rvm"
-DEFAULT_RUBY_VERSION = "ree"
+DEFAULT_RUBY_VERSION = "1.8.7"
 
 if DEFAULT_RUBY_VERSION.match('ree')
   puts 'looks like we are using REE hopefully in Lion, which needs this'
