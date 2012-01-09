@@ -1,8 +1,8 @@
 {
   "recipes": [
      "homebrew", // Installs homebrew, plus creates ~/Developer and a related improvements
-     "homebrew::misc"
-     "git"
+     "homebrew::misc",
+     "git",
      "homebrew::dbs",
      "ruby",
      "ruby::rvm",
