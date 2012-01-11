@@ -27,16 +27,30 @@ script "installing passenger" do
 end
 
 script "installing nginx" do
+ interpreter "bash"
+ code <<-EOS
+   echo "I'm INSTALLING nginx"
+   brew install nginx --with-passenger
+ EOS
+ not_if do
+   current_nginx_version = `#{ENV['HOME']}/Developer/sbin/nginx -V 2>&1`
+   current_nginx_version =~ /1\.0\.11/ ? true : false
+ end
+ 
+end
+
+script "adding local.bookrenter apps to /etc/hosts" do
   interpreter "bash"
   code <<-EOS
-    brew install nginx --with-passenger"
+    echo "127.0.0.1 local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
+    echo "127.0.0.1 ops.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
+    echo "127.0.0.1 cart.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
+    echo "127.0.0.1 store.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
+    echo "127.0.0.1 stores.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
+    echo "127.0.0.1 bws.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
   EOS
-  not_if do
-    current_nginx_version = `#{ENV['HOME']}/Developer/sbin/nginx -V 2>&1`
-    current_nginx_version =~ /1\.0\.6/ ? true : false
-  end
-  
-end
+  not_if "cat /etc/hosts | grep local.bookrenter.com"
+end  
 
 # system("mkdir -p #{ENV['HOME']}/Library/LaunchAgents")
 # system("launchctl unload -w -F #{destination_plist} >/dev/null 2>&1")
