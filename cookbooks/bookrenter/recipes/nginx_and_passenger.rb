@@ -39,18 +39,25 @@ script "installing nginx" do
  
 end
 
-script "adding local.bookrenter apps to /etc/hosts" do
-  interpreter "bash"
-  code <<-EOS
-    echo "127.0.0.1 local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
-    echo "127.0.0.1 ops.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
-    echo "127.0.0.1 cart.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
-    echo "127.0.0.1 store.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
-    echo "127.0.0.1 stores.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
-    echo "127.0.0.1 bws.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
-  EOS
-  not_if "cat /etc/hosts | grep local.bookrenter.com"
-end  
+%w{local cart.local ops.local bws.local store.local stores.local}.each do |url|
+  execute "Adding #{url}.bookrenter.com to /etc/hosts" do
+    command "echo '127.0.0.1 #{url}.bookrenter.com' | sudo tee -a /etc/hosts > /dev/null"
+    not_if "cat /etc/hosts | grep #{url}.bookrenter.com"
+  end  
+end
+
+# script "adding local.bookrenter apps to /etc/hosts" do
+#   interpreter "bash"
+#   code <<-EOS
+#     echo "127.0.0.1 local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
+#     echo "127.0.0.1 ops.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
+#     echo "127.0.0.1 cart.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
+#     echo "127.0.0.1 store.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
+#     echo "127.0.0.1 stores.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
+#     echo "127.0.0.1 bws.local.bookrenter.com" | sudo tee -a /etc/hosts > /dev/null
+#   EOS
+#   not_if "cat /etc/hosts | grep local.bookrenter.com"
+# end  
 
 # system("mkdir -p #{ENV['HOME']}/Library/LaunchAgents")
 # system("launchctl unload -w -F #{destination_plist} >/dev/null 2>&1")
