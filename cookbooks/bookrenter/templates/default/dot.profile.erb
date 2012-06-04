@@ -1,0 +1,26 @@
+PATH="$PATH"; export PATH
+MANPATH="$MANPATH"; export MANPATH
+
+# CFLAGS="-I<%= @home %>/Developer/include"; export CFLAGS
+# CPPFLAGS="-I<%= @home %>/Developer/include"; export CPPFLAGS
+# CXXFLAGS="-I<%= @home %>/Developer/include"; export CXXFLAGS
+# LDFLAGS="-L<%= @home %>/Developer/lib"; export LDFLAGS
+# HOMEBREW_TEMP="<%= @home %>/Developer/tmp"; export HOMEBREW_TEMP
+
+# export CONFIGURE_ARGS="--with-cflags='$CFLAGS' --with-ldflags='$LDFLAGS'"
+
+if [[ -s <%= @home %>/.rvm/scripts/rvm ]] ; then
+  source <%= @home %>/.rvm/scripts/rvm
+fi
+
+# if [[ -d <%= @home %>/Developer/Cellar/python/2.7/bin ]]; then
+#   export PATH=~/Developer/Cellar/python/2.7/bin:$PATH
+# fi
+
+if [[ -f <%= @home %>/.mainstay/profile.custom ]]; then
+  source ~/.mainstay/profile.custom
+fi
+
+# if [ $SHELL = /bin/bash -a -f `brew --prefix`/etc/bash_completion ]; then
+#   source <%= @home %>/Developer/etc/bash_completion
+# fi
