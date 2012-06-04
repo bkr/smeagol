@@ -5,7 +5,7 @@ class Chef
   class Provider
     class Package
       class Homebrew < ::Chef::Provider::Package
-        PREFIX   = "#{ENV['HOME']}/Developer"
+        PREFIX   = "/usr/local"
         HOMEBREW = "#{PREFIX}/bin/brew"
 
         def latest_version_for(name)
@@ -20,7 +20,7 @@ class Chef
         end
 
         def install_package(name, version)
-          run_brew_command("#{HOMEBREW} info #{name} | grep -q \"Not installed\"; if [ $? -eq 0 ]; then /usr/bin/env HOMEBREW_TEMP=#{PREFIX}/tmp #{HOMEBREW} install #{name}; fi")
+          run_brew_command("#{HOMEBREW} info #{name} | grep -q \"Not installed\"; if [ $? -eq 0 ]; then #{HOMEBREW} install #{name}; fi")
         end
 
         def remove_package(name, version)
@@ -37,10 +37,10 @@ class Chef
 
       class HomebrewDb < Homebrew
         def plist_for(name)
-          { "mysql"      => "com.mysql.mysqld.plist",
-            "redis"      => "io.redis.redis-server.plist",
+          { "mysql"      => "homebrew.mxcl.mysql.plist",
+            "redis"      => "homebrew.mxcl.redis.plist",
             "mongodb"    => "org.mongodb.mongod.plist",
-            "memcached"  => "com.danga.memcached.plist",
+            "memcached"  => "homebrew.mxcl.memcached.plist",
             "postgresql" => "org.postgresql.postgres.plist" }[name]
         end
 
