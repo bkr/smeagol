@@ -18,10 +18,14 @@
 # rake db:create:all
 # 
 
-execute "checkout the bookrenter code" do
-  command "#{ENV['HOME']}/Developer/bin/git clone git@github.com:bkr/main.git"
-  cwd     "#{ENV['HOME']}/Developer"
-  not_if  "test -e #{ENV['HOME']}/Developer/main/changelog.txt"
+directory "#{ENV['HOME']}/Code" do
+  action :create
+end
+
+execute "checkout the core bookrenter code" do
+  command "git clone git@github.com:bkr/main.git"
+  cwd     "#{ENV['HOME']}/Code"
+  not_if  "test -e #{ENV['HOME']}/Code/main/changelog.txt"
 end
 
 
