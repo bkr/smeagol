@@ -1,4 +1,4 @@
-# Rakefile for Smeagol Repository
+# Rakefile for Mainstay Repository
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -7,7 +7,7 @@
 # limitations under the License.
 #
 
-# Smeagol defaults to latest homebrew by default
+# Mainstay defaults to latest homebrew by default
 ENV['MAINSTAY_RELEASE'] ||= 'origin/master'
 
 desc "Package up a set of chef recipes for the mainstay client"
@@ -62,8 +62,8 @@ begin
     FileUtils.rm_rf temp_dir
   end
 
-  namespace :smeagol do
-    desc "Run the smeagol chef recipes with the run_list.json in config/"
+  namespace :mainstay do
+    desc "Run the mainstay chef recipes with the run_list.json in config/"
     task :install do |t, args|
       system("chef-solo -j config/run_list.json -c config/solo.rb")
     end
@@ -80,5 +80,5 @@ rescue LoadError => e
   puts "You don't seem to have chef. You can install it by running the following command:"
   puts "gem install chef --no-rdoc --no-ri"
   puts "NOTE: if you get a permissions error, you will need to run that command as root via sudo"
-  puts "After installing chef, please rerun 'rake smeagol:install'"
+  puts "After installing chef, please rerun 'rake mainstay:install'"
 end
