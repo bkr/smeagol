@@ -8,9 +8,9 @@
 #
 
 # Smeagol defaults to latest homebrew by default
-ENV['CINDERELLA_RELEASE'] ||= 'origin/master'
+ENV['MAINSTAY_RELEASE'] ||= 'origin/master'
 
-desc "Package up a set of chef recipes for the cinderella client"
+desc "Package up a set of chef recipes for the mainstay client"
 task :package do
   system("tar czf ../ciderapp.org/cider.tgz --exclude certificates --exclude config --exclude .git --exclude roles --exclude site-cookbooks .")
 end

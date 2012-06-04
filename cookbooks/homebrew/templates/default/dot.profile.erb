@@ -25,8 +25,8 @@ if [[ -x <%= @home %>/Developer/.rbenv/bin/rbenv ]]; then
   eval "$(rbenv init -)"
 fi
 
-if [[ -f <%= @home %>/.cinderella.profile.custom ]]; then
-  source ~/.cinderella.profile.custom
+if [[ -f <%= @home %>/.mainstay/profile.custom ]]; then
+  source ~/.mainstay/profile.custom
 fi
 
 if [ $SHELL = /bin/bash -a -f `brew --prefix`/etc/bash_completion ]; then

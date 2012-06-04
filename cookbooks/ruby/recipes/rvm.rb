@@ -26,7 +26,7 @@ end
 script "installing rvm to ~/.rvm" do
   interpreter "bash"
   code <<-EOS
-    source ~/.cinderella.profile
+    source ~/.mainstay/profile
     export HOME
     bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)
   EOS
@@ -35,15 +35,15 @@ end
 script "updating rvm to the latest stable version" do
   interpreter "bash"
   code <<-EOS
-    source ~/.cinderella.profile
-    rvm update --head >> ~/.cinderella/ruby.log 2>&1
+    source ~/.mainstay/profile
+    rvm update --head >> ~/.mainstay/ruby.log 2>&1
   EOS
 end
 
 script "installing ruby" do
   interpreter "bash"
   code <<-EOS
-    source ~/.cinderella.profile
+    source ~/.mainstay/profile
     `rvm list | grep -q '#{DEFAULT_RUBY_VERSION}'`
     if [ $? -ne 0 ]; then
       #{GCC_OVERRIDE}
@@ -55,7 +55,7 @@ end
 script "ensuring a default ruby is set" do
   interpreter "bash"
   code <<-EOS
-    source ~/.cinderella.profile
+    source ~/.mainstay/profile
     `which ruby | grep -q rvm`
     if [ $? -ne 0 ]; then
       rvm use #{DEFAULT_RUBY_VERSION} --default
@@ -74,8 +74,8 @@ end
 script "ensuring default rubygems are installed" do
   interpreter "bash"
   code <<-EOS
-    source ~/.cinderella.profile
-    rvm gemset load ~/.rvm/gemsets/default.gems >> ~/.cinderella/ruby.log 2>&1
+    source ~/.mainstay/profile
+    rvm gemset load ~/.rvm/gemsets/default.gems >> ~/.mainstay/ruby.log 2>&1
   EOS
 end
 

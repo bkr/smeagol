@@ -1,3 +1,7 @@
+mainstay
+========
+TODO - This
+
 smeagol
 =======
 
@@ -18,8 +22,6 @@ What it does
 * Installs a modern [python] environment with [pip]
 * Installs an [erlang] environment
 * Installs [MacVim] and sets up [janus]
-
-This is what I run on my system, [cinderella][cinderella] is a subset of that.
 
 Running
 =======
@@ -60,5 +62,4 @@ enable/disable the services that are installed by default.
 [smeagol]: http://en.wikipedia.org/wiki/Gollum
 [homebrew]: http://github.com/mxcl/homebrew
 [memcached]: http://memcached.org/
-[cinderella]: http://ciderapp.org
 [postgresql]: http://www.postgresql.org/

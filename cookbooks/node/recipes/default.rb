@@ -23,14 +23,14 @@ end
 script "configuring nvm and node #{DEFAULT_NODE_VERSION}" do
   interpreter "bash"
   code <<-EOS
-    source ~/.cinderella.profile
+    source ~/.mainstay/profile
     cd #{ENV['HOME']}/Developer
     if [ ! -d ./.nvm ]; then
-      git clone git://github.com/creationix/nvm.git .nvm >> ~/.cinderella/node.log
-      source #{ENV['HOME']}/Developer/.nvm/nvm.sh        >> ~/.cinderella/node.log
-      nvm install #{DEFAULT_NODE_VERSION}                >> ~/.cinderella/node.log
-      nvm alias default #{DEFAULT_NODE_VERSION}          >> ~/.cinderella/node.log
-      curl http://npmjs.org/install.sh | clean=yes sh    >> ~/.cinderella/node.log
+      git clone git://github.com/creationix/nvm.git .nvm >> ~/.mainstay/node.log
+      source #{ENV['HOME']}/Developer/.nvm/nvm.sh        >> ~/.mainstay/node.log
+      nvm install #{DEFAULT_NODE_VERSION}                >> ~/.mainstay/node.log
+      nvm alias default #{DEFAULT_NODE_VERSION}          >> ~/.mainstay/node.log
+      curl http://npmjs.org/install.sh | clean=yes sh    >> ~/.mainstay/node.log
     fi
   EOS
 end
