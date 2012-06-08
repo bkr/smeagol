@@ -28,4 +28,17 @@ execute "checkout the core bookrenter code" do
   not_if  "test -e #{ENV['HOME']}/Code/main/changelog.txt"
 end
 
+execute "checkout the bkr chef repository code" do
+  command "git clone git@github.com:bkr/chef_repository.git"
+  cwd     "#{ENV['HOME']}/Code"
+  not_if  "test -e #{ENV['HOME']}/Code/chef_repository/README"
+end
+
+
+execute "checkout the adoption forecaster repository code" do
+  command "git clone git@github.com:bkr/adoption-forecaster.git"
+  cwd     "#{ENV['HOME']}/Code"
+  not_if  "test -e #{ENV['HOME']}/Code/adoption-forecaster/Gemfile"
+end
+
 
