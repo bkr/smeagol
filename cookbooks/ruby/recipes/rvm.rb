@@ -3,7 +3,7 @@
 # Recipe:: rvm
 #
 
-DEFAULT_RUBY_VERSION = "1.9.3"
+DEFAULT_RUBY_VERSION = "ruby-1.9.3-p125"
 # 
 # if DEFAULT_RUBY_VERSION.match('ree')
 #   puts 'looks like we are using REE hopefully in Lion, which needs this'
@@ -53,9 +53,10 @@ script "ensuring a default ruby is set" do
   interpreter "bash"
   code <<-EOS
     source ~/.mainstay/profile
-    `which ruby | grep -q rvm`
+    `which ruby | grep -q #{DEFAULT_RUBY_VERSION}`
     if [ $? -ne 0 ]; then
       rvm use #{DEFAULT_RUBY_VERSION} --default
+      rvm use #{DEFAULT_RUBY_VERSION}
     fi
   EOS
 end
@@ -78,6 +79,7 @@ script "ensuring default rubygems are installed" do
   interpreter "bash"
   code <<-EOS
     source ~/.mainstay/profile
+    rvm use #{DEFAULT_RUBY_VERSION}
     rvm gemset load ~/.rvm/gemsets/default.gems >> ~/.mainstay/ruby.log 2>&1
   EOS
 end
