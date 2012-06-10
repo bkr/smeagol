@@ -1,12 +1,14 @@
 {
   "recipes": [
-     "homebrew", // Installs homebrew, plus creates ~/Developer and a related improvements
-     "homebrew::misc",
-     "git",
-     "homebrew::dbs",
-     "ruby",
-     "ruby::rvm",
-     "bookrenter",
+	 "bookrenter::mainstay", // Generally you want this running first, as it sets up folders the others require on, etc
+	 "oh-my-zsh",
+	 "homebrew", // Installs homebrew
+	 "homebrew::misc",
+	 "git",
+	 "homebrew::dbs",
+	 "ruby",
+	 "ruby::rvm",
+	 "bookrenter",
      "bookrenter::nginx_and_passenger"
   ]
 }
