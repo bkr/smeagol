@@ -24,7 +24,7 @@ script "installing passenger" do
     rvm list
     echo `rvm list`
     rvm ruby-1.9.3-p125 ; echo `ruby --version`
-    rvm ruby-1.9.3-p125@rails3 gem install passenger -v=3.0.9
+    rvm ruby-1.9.3-p125@rails3 gem install passenger -v=3.0.12
   EOS
   not_if "gem list passenger | grep -q \"3.0.9\""
 end
@@ -32,6 +32,7 @@ end
 script "installing nginx via passsenger" do
   interpreter "bash"
   code <<-EOS
+    source ~/.mainstay/profile
     echo "nginx install start"
     passenger-install-nginx-module --auto-download --auto --prefix=/usr/local/nginx
     echo "nginx install end"
